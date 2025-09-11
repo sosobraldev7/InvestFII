@@ -1,0 +1,109 @@
+/* Reset Básico aqui */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  transition: background 0.3s, color 0.3s;
+  line-height: 1.5;
+}
+
+
+/* Tema escuro/claro */
+body.light {
+    background: #f9fafb;
+    color: #111827;
+}
+body.dark {
+    background: #111827;
+    color: #f9fafb;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Barra de Pesquisa */
+input {
+    display: block;
+    margin: 1.5rem auto;
+    padding: 0.8rem 1rem;
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+body.dark input {
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: white;
+}
+
+/* Cards */
+.fundos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+}
+
+.card span {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #6b7280;
+}
+
+body.dark .card{
+    background: #1f2937;
+    color: white;
+}
+
+/* Aside com gráfico + chat da IA */
+aside {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.grafico, .chat {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark .grafico,
+body.dark .chat {
+    background: #1f2937;
+    color: white;
+}
