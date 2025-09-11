@@ -33,3 +33,31 @@ const chart = new Chart(ctx, {
         }
     }
 });
+
+// Enviar mensagem do python
+async function enviarMensagem(mensagem) {
+    try {
+        const res = await fetch("http://127.0.0.1:5000/chat",{
+            /**
+             * 
+             */
+            "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({mensagem}) 
+                
+            });
+
+            const data = await res.json();
+            return data.resposta;
+    }       catch (error) {
+        console.error("Erro ao conectar com a IA:", error);
+        return "Erro ao conectar com o servidor.";
+    }
+}
+    
+   // Exemplo sendo usado
+   (async () => {
+    const resposta = await enviarMensagem("Qual o melhor FII agora?");
+    console.log("IA respondeu:", resposta);
+   })();
+    
