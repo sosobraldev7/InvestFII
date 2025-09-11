@@ -1,14 +1,13 @@
-from flask import flask, request, jsonify
+from flask import Flask, request, jsonify
 import random
 
-app = flask(__name__)
+app = Flask(__name__)
 
 # respostas de exemplo (é uma simulação da IA)
-
 respostas = [
     "FII FLEUR tem mostrado forte crescimento no setor de logística.",
     "MXRF11 tem mostrado ser uma boa opção.",
-    "FII HGRE11 está em destaque no setor residencial."
+    "FII HGRE11 está em destaque no setor residencial.",
     "FII FDONE tem mostrado atraído investidores pelo seu crescimento."
 ]
 
@@ -17,11 +16,10 @@ def chat():
     data = request.json
     pergunta = data.get("mensagem", "")
 
-     #Aqui no futuro vai ser conectar com a IA de verdade (OpenAI)
-     resposta = random.choice(respostas)
+    # Aqui no futuro vai ser conectado com a IA de verdade (OpenAI)
+    resposta = random.choice(respostas)
 
-     return jsonify({"resposta": resposta})
+    return jsonify({"resposta": resposta})  # retorna a resposta em JSON
 
-
-     if __name__ == "__main__":
-        app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
