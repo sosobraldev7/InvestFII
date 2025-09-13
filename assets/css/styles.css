@@ -107,3 +107,31 @@ body.dark .chat {
     background: #1f2937;
     color: white;
 }
+
+#chat-container {
+    width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #add;
+    border-radius: 8px;
+}
+
+#menssagens {
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+#mensagem {
+    width: 70%;
+    padding: 5px;
+}
+
+button {
+    padding: 6px 12px;
+    margin-left: 5px;
+    cursor: pointer;
+}

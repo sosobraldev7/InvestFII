@@ -41,7 +41,7 @@ async function enviarMensagem(mensagem) {
             /**
              * 
              */
-            "POST",
+            "POST": any,
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({mensagem}) 
                 
@@ -61,3 +61,33 @@ async function enviarMensagem(mensagem) {
     console.log("IA respondeu:", resposta);
    })();
     
+   async function enviarMensagem() {
+    const input = document.getElementById("mensagem");
+    const mensagem = input.value;
+
+    if (!mensagem) return;
+
+    // mostar a mensagem do usuário
+
+    const messagens = document.getElementById("messages");
+    messagens.innerHTML += '<p><strong>Você:</strong> ${mensagem}</p>';
+
+    // Enviar para o backend Flask
+
+    const resposta = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensagem })
+    });
+
+    const data = await resposta.json();
+
+    // Mostrar resposta da IA
+    mensagem.innerHTML += '<p><strong>IA:</strong> ${data.resposta}</p>';
+
+    // Limpar input
+
+    input.value = "";
+    
+    
+   }
