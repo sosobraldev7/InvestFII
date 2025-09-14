@@ -1,8 +1,8 @@
-/* Reset Básico aqui */
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -11,134 +11,162 @@ body {
   line-height: 1.5;
 }
 
-
-/* Tema escuro/claro */
+/* Tema claro/escuro */
 body.light {
-    background: #f9fafb;
-    color: #111827;
+  background: #f9fafb;
+  color: #111827;
 }
+
 body.dark {
-    background: #111827;
-    color: #f9fafb;
+  background: #111827;
+  color: #f9fafb;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: linear-gradient(90deg, #2563eb, #3b82f6);
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
 }
 
 #theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: white;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
 }
 
 /* Barra de Pesquisa */
-input {
-    display: block;
-    margin: 1.5rem auto;
-    padding: 0.8rem 1rem;
-    width: 90%;
-    max-width: 600px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
+input[type="text"] {
+  display: block;
+  margin: 1.5rem auto;
+  padding: 0.8rem 1rem;
+  width: 90%;
+  max-width: 600px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
-body.dark input {
-    background: #1f2937;
-    border: 1px solid #374151;
-    color: white;
+body.dark input[type="text"] {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: white;
 }
 
-/* Cards */
+/* Cards de FIIs */
 .fundos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-    padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 1rem 2rem;
 }
 
 .card {
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    font-weight: 600;
-    transition: background 0.3s, color 0.3s;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
 }
 
 .card span {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: #6b7280;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #6b7280;
 }
 
-body.dark .card{
-    background: #1f2937;
-    color: white;
+body.dark .card {
+  background: #1f2937;
+  color: white;
 }
 
-/* Aside com gráfico + chat da IA */
+/* Aside */
 aside {
-    margin: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.grafico, .chat {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: background 0.3s, color 0.3s;
+.grafico,
+.chat-info {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s, color 0.3s;
 }
 
 body.dark .grafico,
-body.dark .chat {
-    background: #1f2937;
-    color: white;
+body.dark .chat-info {
+  background: #1f2937;
+  color: white;
 }
 
+/* Chat container */
 #chat-container {
-    width: 400px;
-    margin: 20px auto;
-    padding: 10px;
-    border: 1px solid #add;
-    border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
 }
 
-#menssagens {
-    height: 200px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+body.dark #chat-container {
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+#messages {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9fafb;
+}
+
+body.dark #messages {
+  background: #111827;
+  border: 1px solid #374151;
+  color: white;
 }
 
 #mensagem {
-    width: 70%;
-    padding: 5px;
+  width: 70%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 button {
-    padding: 6px 12px;
-    margin-left: 5px;
-    cursor: pointer;
+  padding: 8px 14px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
+button:hover {
+  background: #1d4ed8;
+}
+
+/* Gráficos */
 canvas {
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  height: 400px !important; /* força altura */
+  height: 400px !important;
 }

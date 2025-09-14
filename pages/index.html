@@ -1,68 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-Br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestFII</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InvestFII</title>
 
-    <!-- Chat do site -->
-    <div id="chat-container">
-        <div id="menssages"></div>
-        <input type="text" id="mensagem" placeholder="Digite sua pergunta..."
-    <button onclick="enviarMensagem()">Enviar</button>
-</div>
- <script src="../js/script.js"></script>
-    <!-- Fonte Inter -->
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-     rel="stylesheet">
-     <link rel="stylesheet" href="../assets/css/styles.css">
-    <script src=""https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Fonte Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="light"></body>
-<header>
+<body class="light">
+  <!-- Header -->
+  <header>
     <h1>InvestFII</h1>
     <button id="theme-toggle">🌙</button>
-</header>
+  </header>
 
-<body>
-     <main>
-<!-- Barra de busca do Site-->
- <input type="text" placeholder="Buscar por fundo imobiliário....">
+  <main>
+    <!-- Barra de busca -->
+    <input type="text" placeholder="Buscar por fundo imobiliário...">
 
- <h2>Fundos imobiliários</h2>
- <section class="Fundos">
-    <div class="card">FII ABCD11 <span>Fundo de lajes corpotativas</span></div>
-    <div class="card">FII FLEUR<span>Fundo de logística</span></div>
-    <div class="card">MXRF11<span>Fundo de imobiliário</span></div>
-    <div class="card">FII FDONE<span>Fundo de edificios comerciais</span></div>
-    <div class="card">FII HGRE11<span>Fundo de imóveis residenciais</span></div>
+    <h2>Fundos Imobiliários</h2>
+    <section class="fundos">
+      <div class="card">ABCD11 <span>Fundo de lajes corporativas</span></div>
+      <div class="card">FLEUR11 <span>Fundo de logística</span></div>
+      <div class="card">MXRF11 <span>Fundo imobiliário</span></div>
+      <div class="card">FDONE11 <span>Fundo de edifícios comerciais</span></div>
+      <div class="card">HGRE11 <span>Fundo de imóveis residenciais</span></div>
+    </section>
 
-    <!-- Gráfico em tempo Real-->
-     <h2>📊 Gráfico em Tempo Real</h2>
-     <div style="width: 80%; margin: auto; padding: 20px;">
-  <canvas id="graficoFII" width="400" height="200"></canvas>
-</div>
+    <!-- Gráfico em tempo real -->
+    <h2>📊 Gráfico em Tempo Real</h2>
+    <div style="width: 80%; margin: auto; padding: 20px;">
+      <canvas id="graficoFII" width="400" height="200"></canvas>
+    </div>
 
-<!-- Importando o Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chat -->
+    <section id="chat-container">
+      <h3>Chat com a IA</h3>
+      <div id="messages"></div>
+      <input type="text" id="mensagem" placeholder="Digite sua pergunta...">
+      <button onclick="enviarMensagem()">Enviar</button>
+    </section>
 
-<!-- Seu script.js (depois do Chart.js) -->
-<script src="script.js"></script>
-
-    <!-- pode adicinar mais fundos. -->
- </section>
-  <aside>
-     <div class="grafico">
-         <canvas id="chart"></canvas>
-     </div>
-      <div class="chat">
-         <h3>Chat</h3>
-         <p><strong>Melhor fundo no momento:</strong>FII FLEUR</p>
-         <p>Fundo de logística com sólido crescimento no longo prazo e boa rentabilidade no curto prazo.</p>  
+    <!-- Aside com outro gráfico -->
+    <aside>
+      <div class="grafico">
+        <canvas id="chart"></canvas>
       </div>
-  </aside>
-     </main>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script src="../js/script.js"></script>
+      <div class="chat-info">
+        <h3>Dica do Momento</h3>
+        <p><strong>Melhor fundo:</strong> FLEUR11</p>
+        <p>Fundo de logística com sólido crescimento no longo prazo e boa rentabilidade no curto prazo.</p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Scripts -->
+  <script src="../js/script.js"></script>
 </body>
 </html>

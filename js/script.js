@@ -6,93 +6,11 @@ toggleBtn.addEventListener("click", () => {
     body.classList.toggle("dark");
     body.classList.toggle("light");
 
-    if(body.classList.contains("dark")) {
-        toggleBtn.textContent = "☀️";
-    } else {
-        toggleBtn.textContent = "🌙";
-    }
+    toggleBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
 });
 
-// exemplo gráfico Chart.js
-const ctx = document.getElementById('chat').getContext('2d');
-const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ["Início", "1M", "3M", "6M", "1A"],
-        datasets: [{
-            label: 'Crescimento',
-            data: [80, 90, 95, 105, 110],
-            borderColor: '#3b82f6',
-            tension: 0.3
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { display: false }
-        }
-    }
-});
-
-// Enviar mensagem do python
-async function enviarMensagem(mensagem) {
-    try {
-        const res = await fetch("http://127.0.0.1:5000/chat",{
-            /**
-             * 
-             */
-            "POST": any,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({mensagem}) 
-                
-            });
-
-            const data = await res.json();
-            return data.resposta;
-    }       catch (error) {
-        console.error("Erro ao conectar com a IA:", error);
-        return "Erro ao conectar com o servidor.";
-    }
-}
-    
-   // Exemplo sendo usado
-   (async () => {
-    const resposta = await enviarMensagem("Qual o melhor FII agora?");
-    console.log("IA respondeu:", resposta);
-   })();
-    
-   async function enviarMensagem() {
-    const input = document.getElementById("mensagem");
-    const mensagem = input.value;
-
-    if (!mensagem) return;
-
-    // mostar a mensagem do usuário
-
-    const messagens = document.getElementById("messages");
-    messagens.innerHTML += '<p><strong>Você:</strong> ${mensagem}</p>';
-
-    // Enviar para o backend Flask
-
-    const resposta = await fetch("http://127.0.0.1:5000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mensagem })
-    });
-
-    const data = await resposta.json();
-
-    // Mostrar resposta da IA
-    mensagem.innerHTML += '<p><strong>IA:</strong> ${data.resposta}</p>';
-
-    // Limpar input
-
-    input.value = "";
-
-    // Criar gráfico inicial do site
-
-   const ctx = document.getElementById('graficoFII').getContext('2d');
-
+// Gráfico inicial do site
+const ctx = document.getElementById('graficoFII').getContext('2d');
 const grafico = new Chart(ctx, {
   type: 'line',
   data: {
@@ -109,7 +27,7 @@ const grafico = new Chart(ctx, {
   },
   options: {
     responsive: true,
-    maintainAspectRatio: false, // ← Corrige layout espremido
+    maintainAspectRatio: false,
     scales: {
       x: { title: { display: true, text: 'Tempo' } },
       y: { title: { display: true, text: 'Preço (R$)' } }
@@ -117,7 +35,7 @@ const grafico = new Chart(ctx, {
   }
 });
 
-// Atualização em tempo real
+// Atualização do gráfico
 function atualizarGrafico() {
   const agora = new Date().toLocaleTimeString();
   const valor = (100 + Math.random() * 10).toFixed(2);
@@ -135,4 +53,38 @@ function atualizarGrafico() {
 
 setInterval(atualizarGrafico, 2000);
 
-   }
+// Enviar mensagem para backend Flask
+async function enviarMensagem() {
+    const input = document.getElementById("mensagem");
+    const mensagem = input.value;
+
+    if (!mensagem) return;
+
+    // Mostrar mensagem do usuário
+    const mensagensContainer = document.getElementById("messages");
+    mensagensContainer.innerHTML += `<p><strong>Você:</strong> ${mensagem}</p>`;
+
+    try {
+        const resposta = await fetch("http://127.0.0.1:5000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mensagem })
+        });
+
+        const data = await resposta.json();
+
+        // Mostrar resposta da IA
+        mensagensContainer.innerHTML += `<p><strong>IA:</strong> ${data.resposta}</p>`;
+    } catch (error) {
+        console.error("Erro ao conectar com a IA:", error);
+        mensagensContainer.innerHTML += `<p><strong>Erro:</strong> Não foi possível conectar com o servidor.</p>`;
+    }
+
+    input.value = "";
+}
+
+// Exemplo de uso
+(async () => {
+    const respostaInicial = await enviarMensagem("Qual o melhor FII agora?");
+    console.log("IA respondeu:", respostaInicial);
+})();
