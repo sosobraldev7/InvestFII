@@ -135,3 +135,10 @@ button {
     margin-left: 5px;
     cursor: pointer;
 }
+
+canvas {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 400px !important; /* força altura */
+}

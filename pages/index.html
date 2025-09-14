@@ -16,6 +16,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
      rel="stylesheet">
      <link rel="stylesheet" href="../assets/css/styles.css">
+    <script src=""https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="light"></body>
 <header>
@@ -35,6 +36,19 @@
     <div class="card">MXRF11<span>Fundo de imobiliário</span></div>
     <div class="card">FII FDONE<span>Fundo de edificios comerciais</span></div>
     <div class="card">FII HGRE11<span>Fundo de imóveis residenciais</span></div>
+
+    <!-- Gráfico em tempo Real-->
+     <h2>📊 Gráfico em Tempo Real</h2>
+     <div style="width: 80%; margin: auto; padding: 20px;">
+  <canvas id="graficoFII" width="400" height="200"></canvas>
+</div>
+
+<!-- Importando o Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Seu script.js (depois do Chart.js) -->
+<script src="script.js"></script>
+
     <!-- pode adicinar mais fundos. -->
  </section>
   <aside>

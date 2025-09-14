@@ -88,6 +88,51 @@ async function enviarMensagem(mensagem) {
     // Limpar input
 
     input.value = "";
-    
-    
+
+    // Criar gráfico inicial do site
+
+   const ctx = document.getElementById('graficoFII').getContext('2d');
+
+const grafico = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Preço do FII (R$)',
+      data: [],
+      borderColor: '#0078ff',
+      backgroundColor: 'rgba(0, 120, 255, 0.2)',
+      borderWidth: 2,
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false, // ← Corrige layout espremido
+    scales: {
+      x: { title: { display: true, text: 'Tempo' } },
+      y: { title: { display: true, text: 'Preço (R$)' } }
+    }
+  }
+});
+
+// Atualização em tempo real
+function atualizarGrafico() {
+  const agora = new Date().toLocaleTimeString();
+  const valor = (100 + Math.random() * 10).toFixed(2);
+
+  grafico.data.labels.push(agora);
+  grafico.data.datasets[0].data.push(valor);
+
+  if (grafico.data.labels.length > 10) {
+    grafico.data.labels.shift();
+    grafico.data.datasets[0].data.shift();
+  }
+
+  grafico.update();
+}
+
+setInterval(atualizarGrafico, 2000);
+
    }
