@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify # type: ignore
 from flask_czors import CORS # type: ignore
 import os
 import openai # type: ignore

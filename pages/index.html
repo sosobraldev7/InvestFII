@@ -34,32 +34,40 @@
       <div class="card">HGRE11 <span>Fundo de imóveis residenciais</span></div>
     </section>
 
-    <!-- Gráfico em tempo real -->
-    <h2>📊 Gráfico em Tempo Real</h2>
-    <div style="width: 80%; margin: auto; padding: 20px;">
-      <canvas id="graficoFII" width="400" height="200"></canvas>
-    </div>
+   <!-- Gráfico em tempo real -->
+<h2>📊 Gráfico em Tempo Real</h2>
 
-    <!-- Chat -->
-    <section id="chat-container">
-      <h3>Chat com a IA</h3>
-      <div id="messages"></div>
-      <input type="text" id="mensagem" placeholder="Digite sua pergunta...">
-      <button onclick="enviarMensagem()">Enviar</button>
-    </section>
+<!-- Filtros de tempo -->
+<div id="filtros-tempo" style="text-align:center; margin: 15px 0;">
+  <button class="filtro-btn ativo" data-periodo="1D">1D</button>
+  <button class="filtro-btn" data-periodo="1W">1W</button>
+  <button class="filtro-btn" data-periodo="1M">1M</button>
+  <button class="filtro-btn" data-periodo="1Y">1Y</button>
+</div>
 
-    <!-- Aside com outro gráfico -->
-    <aside>
-      <div class="grafico">
-        <canvas id="chart"></canvas>
-      </div>
-      <div class="chat-info">
-        <h3>Dica do Momento</h3>
-        <p><strong>Melhor fundo:</strong> FLEUR11</p>
-        <p>Fundo de logística com sólido crescimento no longo prazo e boa rentabilidade no curto prazo.</p>
-      </div>
-    </aside>
-  </main>
+<div style="width: 80%; margin: auto; padding: 20px;">
+  <canvas id="graficoFII" width="400" height="200"></canvas>
+</div>
+
+<!-- Cards resumo abaixo do gráfico -->
+<div id="cards-resumo" style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+  <div class="card-resumo">
+    <p>Último Preço</p>
+    <strong id="ultimo-preco">R$ 0,00</strong>
+  </div>
+  <div class="card-resumo">
+    <p>Variação</p>
+    <strong id="variacao">0%</strong>
+  </div>
+  <div class="card-resumo">
+    <p>Maior Preço</p>
+    <strong id="maior-preco">R$ 0,00</strong>
+  </div>
+  <div class="card-resumo">
+    <p>Menor Preço</p>
+    <strong id="menor-preco">R$ 0,00</strong>
+  </div>
+</div>
 
   <!-- Scripts -->
   <script src="../js/script.js"></script>

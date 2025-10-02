@@ -7,9 +7,11 @@ toggleBtn.addEventListener("click", () => {
     body.classList.toggle("light");
 
     toggleBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+
+    atualizarTemaGrafico();
 });
 
-// Gráfico inicial do site
+// -------------------- Gráfico --------------------
 const ctx = document.getElementById('graficoFII').getContext('2d');
 const grafico = new Chart(ctx, {
   type: 'line',
@@ -18,8 +20,8 @@ const grafico = new Chart(ctx, {
     datasets: [{
       label: 'Preço do FII (R$)',
       data: [],
-      borderColor: '#0078ff',
-      backgroundColor: 'rgba(0, 120, 255, 0.2)',
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59, 130, 246, 0.2)',
       borderWidth: 2,
       fill: true,
       tension: 0.3
@@ -28,14 +30,57 @@ const grafico = new Chart(ctx, {
   options: {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: body.classList.contains("dark") ? "#fff" : "#000"
+        }
+      }
+    },
     scales: {
-      x: { title: { display: true, text: 'Tempo' } },
-      y: { title: { display: true, text: 'Preço (R$)' } }
+      x: { 
+        title: { display: true, text: 'Tempo', color: body.classList.contains("dark") ? "#fff" : "#000" },
+        ticks: { color: body.classList.contains("dark") ? "#fff" : "#000" },
+        grid: { color: body.classList.contains("dark") ? "#444" : "#ccc" }
+      },
+      y: { 
+        title: { display: true, text: 'Preço (R$)', color: body.classList.contains("dark") ? "#fff" : "#000" },
+        ticks: { color: body.classList.contains("dark") ? "#fff" : "#000" },
+        grid: { color: body.classList.contains("dark") ? "#444" : "#ccc" }
+      }
     }
-  }
+  },
+  plugins: [{
+    id: 'customBackground',
+    beforeDraw: (chart) => {
+      const { ctx, chartArea } = chart;
+      if (!chartArea) return;
+
+      ctx.save();
+      ctx.fillStyle = body.classList.contains("dark") ? "#111827" : "#ffffff"; 
+      ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+      ctx.restore();
+    }
+  }]
 });
 
-// Atualização do gráfico
+// -------------------- Atualizar cores do gráfico --------------------
+function atualizarTemaGrafico() {
+  const dark = body.classList.contains("dark");
+
+  grafico.options.plugins.legend.labels.color = dark ? "#fff" : "#000";
+  grafico.options.scales.x.title.color = dark ? "#fff" : "#000";
+  grafico.options.scales.x.ticks.color = dark ? "#fff" : "#000";
+  grafico.options.scales.x.grid.color = dark ? "#444" : "#ccc";
+
+  grafico.options.scales.y.title.color = dark ? "#fff" : "#000";
+  grafico.options.scales.y.ticks.color = dark ? "#fff" : "#000";
+  grafico.options.scales.y.grid.color = dark ? "#444" : "#ccc";
+
+  grafico.update();
+}
+
+// -------------------- Atualização em tempo real --------------------
 function atualizarGrafico() {
   const agora = new Date().toLocaleTimeString();
   const valor = (100 + Math.random() * 10).toFixed(2);
@@ -52,39 +97,3 @@ function atualizarGrafico() {
 }
 
 setInterval(atualizarGrafico, 2000);
-
-// Enviar mensagem para backend Flask
-async function enviarMensagem() {
-    const input = document.getElementById("mensagem");
-    const mensagem = input.value;
-
-    if (!mensagem) return;
-
-    // Mostrar mensagem do usuário
-    const mensagensContainer = document.getElementById("messages");
-    mensagensContainer.innerHTML += `<p><strong>Você:</strong> ${mensagem}</p>`;
-
-    try {
-        const resposta = await fetch("http://127.0.0.1:5000/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensagem })
-        });
-
-        const data = await resposta.json();
-
-        // Mostrar resposta da IA
-        mensagensContainer.innerHTML += `<p><strong>IA:</strong> ${data.resposta}</p>`;
-    } catch (error) {
-        console.error("Erro ao conectar com a IA:", error);
-        mensagensContainer.innerHTML += `<p><strong>Erro:</strong> Não foi possível conectar com o servidor.</p>`;
-    }
-
-    input.value = "";
-}
-
-// Exemplo de uso
-(async () => {
-    const respostaInicial = await enviarMensagem("Qual o melhor FII agora?");
-    console.log("IA respondeu:", respostaInicial);
-})();
