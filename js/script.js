@@ -1,4 +1,4 @@
-// Toggle Tema Claro/Escuro
+// -------------------- Tema Claro/Escuro --------------------
 const toggleBtn = document.getElementById("theme-toggle");
 const body = document.body;
 
@@ -70,10 +70,10 @@ botoesFiltro.forEach(btn => {
 function aplicarFiltro(periodo) {
   let pontos = 10; // default
 
-  if (periodo === "1d") pontos = 10;
-  if (periodo === "1w") pontos = 30;
-  if (periodo === "1m") pontos = 60;
-  if (periodo === "1y") pontos = 120;
+  if (periodo.toLowerCase() === "1d") pontos = 10;
+  if (periodo.toLowerCase() === "1w") pontos = 30;
+  if (periodo.toLowerCase() === "1m") pontos = 60;
+  if (periodo.toLowerCase() === "1y") pontos = 120;
 
   grafico.data.labels = [];
   grafico.data.datasets[0].data = [];
@@ -103,36 +103,41 @@ function atualizarCards() {
   document.getElementById("card-media").innerHTML = `<p>Média</p><strong>R$ ${media}</strong>`;
 }
 
-// -------------------- Chat Flask --------------------
-async function enviarMensagem(mensagem=null) {
-    const input = document.getElementById("mensagem");
-    if (!mensagem) mensagem = input.value;
+// -------------------- Chat IA --------------------
+const bubble = document.getElementById("chat-bubble");
+const chatWindow = document.getElementById("chat-window");
+const chatMessages = document.getElementById("chat-messages");
+const chatInput = document.getElementById("chat-input");
 
+// Toggle abrir/fechar
+bubble.addEventListener("click", () => {
+  chatWindow.style.display = chatWindow.style.display === "flex" ? "none" : "flex";
+});
+
+// Enviar mensagem
+chatInput.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") {
+    const mensagem = chatInput.value.trim();
     if (!mensagem) return;
 
-    const mensagensContainer = document.getElementById("messages");
-    mensagensContainer.innerHTML += `<p><strong>Você:</strong> ${mensagem}</p>`;
+    chatMessages.innerHTML += `<p><strong>Você:</strong> ${mensagem}</p>`;
+    chatInput.value = "";
 
     try {
-        const resposta = await fetch("http://127.0.0.1:5000/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mensagem })
-        });
+      const resposta = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensagem })
+      });
 
-        const data = await resposta.json();
-        mensagensContainer.innerHTML += `<p><strong>IA:</strong> ${data.resposta}</p>`;
-        return data.resposta;
+      const data = await resposta.json();
+      chatMessages.innerHTML += `<p><strong>IA:</strong> ${data.resposta}</p>`;
     } catch (error) {
-        console.error("Erro ao conectar com a IA:", error);
-        mensagensContainer.innerHTML += `<p><strong>Erro:</strong> Não foi possível conectar com o servidor.</p>`;
+      console.error("Erro ao conectar com a IA:", error);
+      chatMessages.innerHTML += `<p><strong>Erro:</strong> Não foi possível conectar com o servidor.</p>`;
     }
 
-    input.value = "";
-}
-
-// Exemplo inicial
-(async () => {
-    const respostaInicial = await enviarMensagem("Qual o melhor FII agora?");
-    console.log("IA respondeu:", respostaInicial);
-})();
+    // Scroll para a última mensagem
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+});
