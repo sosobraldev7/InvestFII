@@ -6,32 +6,38 @@ import openai # type: ignore
 app = Flask(__name__)
 CORS(app)
 
-# Configurar chave da OpenAI
-openai.api_key = os.getenv("OPENAI_API_KEY")
+OPENAI_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_KEY:
+    print("AVISO: variável de ambiente OPENAI_API_KEY não definida")
+openai.api_key = OPENAI_KEY
 
 def gerar_resposta_ia(mensagem):
-    """
-    Função que envia a mensagem para OpenAI GPT e retorna a resposta.
-    """
     if not mensagem:
         return "Por favor, envie uma mensagem válida."
-    
+    if not openai.api_key:
+        return "Erro: OPENAI_API_KEY não definida no servidor."
+
     try:
-        resposta = openai.ChatCompletion.create(
+        resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": mensagem}],
             max_tokens=150
         )
-        return resposta.choices[0].message.content.strip()
+        # compatibilidade: tenta ambos os acessos
+        try:
+            return resp.choices[0].message.content.strip()
+        except Exception:
+            return resp['choices'][0]['message']['content'].strip()
     except Exception as e:
-        print("Erro na OpenAI:", e)
-        return "Erro ao gerar resposta da IA."
+        print("Erro OpenAI:", type(e), e)
+        return f"Erro ao gerar resposta da IA: {str(e)}"
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
+    data = request.get_json(silent=True)
+    print("Body recebido:", data)
     if not data or "mensagem" not in data:
-        return jsonify({"resposta": "Mensagem não recebida."}), 400
+        return jsonify({"erro": "Mensagem não recebida. Envie JSON com chave 'mensagem' e header Content-Type: application/json"}), 400
 
     pergunta = data["mensagem"]
     resposta = gerar_resposta_ia(pergunta)
