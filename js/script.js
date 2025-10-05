@@ -9,6 +9,8 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
 });
 
+
+
 // -------------------- Gráfico --------------------
 const ctx = document.getElementById('graficoFII').getContext('2d');
 const grafico = new Chart(ctx, {
@@ -141,3 +143,4 @@ chatInput.addEventListener("keypress", async (e) => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 });
+
