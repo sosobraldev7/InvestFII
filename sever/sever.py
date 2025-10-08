@@ -1,33 +1,27 @@
-from flask import Flask, request, jsonify # type: ignore
-from flask_cors import CORS # type: ignore
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from openai import OpenAI
 import os
-import openai # type: ignore
 
 app = Flask(__name__)
 CORS(app)
 
-OPENAI_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_KEY:
-    print("AVISO: variável de ambiente OPENAI_API_KEY não definida")
-openai.api_key = OPENAI_KEY
+# Inicializa o cliente da OpenAI com a chave do ambiente
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def gerar_resposta_ia(mensagem):
     if not mensagem:
         return "Por favor, envie uma mensagem válida."
-    if not openai.api_key:
+    if not client.api_key:
         return "Erro: OPENAI_API_KEY não definida no servidor."
 
     try:
-        resp = openai.ChatCompletion.create(
+        resposta = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": mensagem}],
             max_tokens=150
         )
-        # compatibilidade: tenta ambos os acessos
-        try:
-            return resp.choices[0].message.content.strip()
-        except Exception:
-            return resp['choices'][0]['message']['content'].strip()
+        return resposta.choices[0].message.content.strip()
     except Exception as e:
         print("Erro OpenAI:", type(e), e)
         return f"Erro ao gerar resposta da IA: {str(e)}"
