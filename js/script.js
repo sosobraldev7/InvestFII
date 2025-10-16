@@ -73,9 +73,9 @@ function aplicarFiltro(periodo) {
   let pontos = 10; // default
 
   if (periodo.toLowerCase() === "1d") pontos = 10;
-  if (periodo.toLowerCase() === "1w") pontos = 30;
-  if (periodo.toLowerCase() === "1m") pontos = 60;
-  if (periodo.toLowerCase() === "1y") pontos = 120;
+  if (periodo.toLowerCase() === "2s") pontos = 30;
+  if (periodo.toLowerCase() === "3m") pontos = 60;
+  if (periodo.toLowerCase() === "5a") pontos = 120;
 
   grafico.data.labels = [];
   grafico.data.datasets[0].data = [];
