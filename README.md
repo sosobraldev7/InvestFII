@@ -16,3 +16,5 @@ O **InvestFII** é um projeto web para acompanhamento de Fundos Imobiliários (F
 - Estrutura simples e expansível
 
 ## 📂 Estrutura do projeto
+
+<img width="1919" height="967" alt="Captura de tela de 2025-10-16 18-54-29" src="https://github.com/user-attachments/assets/1c54d91b-a168-4c2a-a3bd-4ea080e1a6f9" />
